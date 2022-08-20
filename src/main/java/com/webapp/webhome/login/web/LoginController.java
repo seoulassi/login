@@ -1,31 +1,31 @@
 package com.webapp.webhome.login.web;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.webapp.webhome.login.domain.LoginVO;
 import com.webapp.webhome.login.service.LoginService;
 import com.webapp.webhome.member.domain.SeMemberRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
+
 
 @RestController
+@AllArgsConstructor
 public class LoginController {
-
     @Autowired
-    private SeMemberRepository memberRepository;
+    private LoginService loginService;
 
-    @Autowired
-    private final LoginService loginService;
+    @PostMapping("/api/login")
+    public void login(LoginVO loginVO) throws Exception {
 
-    public LoginController(LoginService loginService) {
-        this.loginService = loginService;
-    }
+        LoginVO loginUser = loginService.login(loginVO.getId(), loginVO.getPassword());
 
-    @PostMapping("/login")
-    public String login(LoginVO loginVO) throws Exception {
-        if (loginService.login(loginVO)){
-            return "로그인 성공";
+        if (loginUser.getId() == null){
+            System.out.println("Fail");
         }else {
-            return "로그인 실패";
+            System.out.println("success!");
         }
     }
 

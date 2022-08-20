@@ -10,14 +10,18 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.security.Principal;
 import java.util.List;
 
 @Slf4j
 @RestController
+@RequestMapping("/api")
 public class MemberController {
     @Autowired
     private SeMemberRepository memberRepository;
@@ -49,6 +53,14 @@ public class MemberController {
     @GetMapping("/memberList")
     Page<SeMember> memberList(Pageable pageable){
         return memberRepository.findAllPage(pageable);
+    }
+    /**
+     * 회원 정보
+     * */
+    @GetMapping("/memberInfo")
+    SeMember memberList(Authentication authentication){
+        String userId = (String) authentication.getPrincipal();
+        return memberRepository.findByUserIdAndDelFlag(userId,"1");
     }
 
 

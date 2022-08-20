@@ -16,17 +16,17 @@ public class LoginService {
     /**
      * 로그인 체크
      * */
-    public boolean login(LoginVO loginVO) throws Exception {
+    public LoginVO login(String userid, String password) throws Exception {
+        LoginVO loginVO = new LoginVO();
         // 패스워드 암호화
-        String pass = EgovFileScrty.encryptPassword(loginVO.getPassword(), EgovStringUtil.isNullToString(loginVO.getId()));
+        String pass = EgovFileScrty.encryptPassword(password, EgovStringUtil.isNullToString(userid));
 
         // 아이디, 패스워드, 활성회원(1) 만 조회.
-        SeMember login = memberRepository.findByUserIdAndPasswordAndDelFlag(loginVO.getId(),pass,"1");
+        SeMember login = memberRepository.findByUserIdAndPasswordAndDelFlag(userid,pass,"1");
 
-        if (login == null){
-            // 로그인 실패
-            return false;
+        if (login != null){
+            loginVO.setId(login.getUserId());
         }
-        return true;
+        return loginVO;
     }
 }

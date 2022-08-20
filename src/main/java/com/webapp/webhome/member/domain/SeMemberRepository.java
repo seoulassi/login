@@ -5,6 +5,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import java.security.Principal;
+
 public interface SeMemberRepository extends JpaRepository<SeMember, Long> {
     // 로그인
     SeMember findByUserIdAndPasswordAndDelFlag(String userId, String password, String delFlag);
