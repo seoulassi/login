@@ -58,12 +58,9 @@ public class MemberController {
      * 회원 정보
      * */
     @GetMapping("/memberInfo")
-    SeMember memberList(Authentication authentication){
-        String userId = (String) authentication.getPrincipal();
+    SeMember memberInfo(Principal principal){
+        String userId = (String) principal.getName();
         return memberRepository.findByUserIdAndDelFlag(userId,"1");
     }
-
-
-
 
 }

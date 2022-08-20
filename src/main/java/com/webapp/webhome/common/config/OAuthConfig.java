@@ -13,6 +13,12 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Aut
 @Configuration
 @EnableAuthorizationServer
 public class OAuthConfig extends AuthorizationServerConfigurerAdapter {
+    @Value("${Global.Oauth.client.id}")
+    String clientId;
+
+    @Value("${Global.Oauth.client.secret}")
+    String clientSecret;
+
     AuthenticationManager authenticationManager;
     public void AuthorizationServerConfigurer(AuthenticationConfiguration authenticationConfiguration) throws Exception {
         this.authenticationManager = authenticationConfiguration.getAuthenticationManager();
@@ -30,13 +36,13 @@ public class OAuthConfig extends AuthorizationServerConfigurerAdapter {
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception{
         clients.inMemory()
-                .withClient("webapp") // 클라이언트 아이디
-                .secret("{noop}webappSecret") // 클라이언트 시크릿
+                .withClient(clientId) // 클라이언트 아이디
+                .secret("{noop}"+clientSecret) // 클라이언트 시크릿
                 .autoApprove(true)
                 .redirectUris("/oauth/callback")
                 .authorizedGrantTypes("authorization_code","password","refresh_token")
                 .scopes("read","write")
-                .accessTokenValiditySeconds(60 * 30)            // access token 유효 기간 (초 단위)
+                .accessTokenValiditySeconds(60 * 1)            // access token 유효 기간 (초 단위)
                 .refreshTokenValiditySeconds(60 * 60 * 24 * 120);   // refresh token 유효 기간 (초 단위)
     }
 }

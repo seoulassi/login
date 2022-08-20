@@ -1,4 +1,4 @@
-package com.webapp.webhome.common.config;
+package com.webapp.webhome.login.web;
 
 import com.webapp.webhome.login.domain.LoginVO;
 import com.webapp.webhome.login.service.LoginService;
@@ -23,8 +23,8 @@ public class OauthAuthenticationProvider implements AuthenticationProvider {
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         String username = (String) authentication.getPrincipal();
         String password = (String) authentication.getCredentials();
-//        System.out.println("authentication.username = " + username);
-//        System.out.println("authentication.password = " + password);
+        System.out.println("authentication.username = " + username);
+        System.out.println("authentication.password = " + password);
 
         LoginVO loginUser = loginService.login(username, password);
 
