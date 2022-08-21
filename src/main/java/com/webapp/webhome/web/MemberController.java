@@ -35,7 +35,7 @@ public class MemberController {
     public ResponseEntity<Message> memberInsert(MemberVO memberVO) throws Exception {
         Message message = new Message();
 
-        if (memberService.memberInsert(memberVO)){
+        if (!memberService.memberInsert(memberVO)){
             message.setStatus(StatusEnum.BAD_REQUEST);
             message.setMessage("회원등록 실패");
 
