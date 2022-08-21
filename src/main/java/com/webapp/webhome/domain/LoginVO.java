@@ -1,10 +1,8 @@
-package com.webapp.webhome.login.domain;
+package com.webapp.webhome.domain;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.security.core.CredentialsContainer;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,15 +1,12 @@
-package com.webapp.webhome.login.service;
+package com.webapp.webhome.service;
 
 import com.webapp.webhome.common.util.EgovFileScrty;
 import com.webapp.webhome.common.util.EgovStringUtil;
-import com.webapp.webhome.login.domain.LoginVO;
-import com.webapp.webhome.member.domain.SeMember;
-import com.webapp.webhome.member.domain.SeMemberRepository;
+import com.webapp.webhome.domain.LoginVO;
+import com.webapp.webhome.domain.SeMember;
+import com.webapp.webhome.domain.SeMemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 @Service
 public class LoginService {
@@ -31,21 +28,5 @@ public class LoginService {
             loginVO.setId(login.getUserId());
         }
         return loginVO;
-    }
-
-    @Override
-    public LoginVO loadUserByUsername(String userId) throws UsernameNotFoundException {
-        SeMember userAccountOptional = memberRepository.findByUserIdAndDelFlag(userId,"1");
-        if (userAccountOptional == null) {
-            throw new UsernameNotFoundException(userId);
-        }
-
-        SeMember userAccount = userAccountOptional;
-        return LoginVO.builder()
-                .username(userAccount.getName())
-                .password(userAccount.getPassword())
-                .roles("ROLE")
-                .build();
-
     }
 }

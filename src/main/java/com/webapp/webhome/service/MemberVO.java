@@ -1,6 +1,6 @@
-package com.webapp.webhome.member.service;
+package com.webapp.webhome.service;
 
-import com.webapp.webhome.member.domain.SeMember;
+import com.webapp.webhome.domain.SeMember;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;

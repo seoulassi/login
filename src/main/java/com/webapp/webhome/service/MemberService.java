@@ -1,9 +1,9 @@
-package com.webapp.webhome.member.service;
+package com.webapp.webhome.service;
 
 import com.webapp.webhome.common.util.EgovFileScrty;
 import com.webapp.webhome.common.util.EgovStringUtil;
-import com.webapp.webhome.member.domain.SeMember;
-import com.webapp.webhome.member.domain.SeMemberRepository;
+import com.webapp.webhome.domain.SeMember;
+import com.webapp.webhome.domain.SeMemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +15,7 @@ public class MemberService {
     /**
      * 회원등록
      * */
-    public String memberInsert(MemberVO memberVO) throws Exception {
+    public boolean memberInsert(MemberVO memberVO) throws Exception {
         // 아이디 중복 체크
         SeMember memberck = memberRepository.findByUserIdAndDelFlag(memberVO.getId(), "1");
 
@@ -30,9 +30,9 @@ public class MemberService {
             // 회원 등록
             memberRepository.save(member);
 
-            return "회원등록 성공!";
+            return true;
         }else {
-            return "회원 등록 실패! - 아이디 중복";
+            return false;
         }
     }
 }

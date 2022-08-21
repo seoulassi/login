@@ -1,17 +1,15 @@
-package com.webapp.webhome.member.domain;
+package com.webapp.webhome.domain;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
-import java.security.Principal;
-
 public interface SeMemberRepository extends JpaRepository<SeMember, Long> {
     // 로그인
     SeMember findByUserIdAndPasswordAndDelFlag(String userId, String password, String delFlag);
 
-    // 아이디 중복 체크
+    // 아이디 중복 체크 + 사용자 확인
     SeMember findByUserIdAndDelFlag(String userId, String delFlag);
 
     // 활성 회원 리스트 페이징

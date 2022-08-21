@@ -1,4 +1,4 @@
-package com.webapp.webhome.member.domain;
+package com.webapp.webhome.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;
